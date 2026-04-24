@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Available Buses - Fun Travels</title>
+  <link rel="icon" href="images/icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="results-page">
+  <header class="header">
+    <div class="top">
+      <div class="brand">
+        <img src="images/icon.png" alt="Fun Travels Logo" />
+        <span>Fun Travels</span>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="mybookings.html">My Bookings</a>
+        <a href="myaccount.html">Account</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-wrap">
+    <div class="container">
+      <h1 class="page-title">Available Buses</h1>
+      <div class="page-sub">Choose your seats and continue to payment.</div>
+      <div id="resultsContainer" class="results-layout"></div>
+    </div>
+  </section>
+
+  <div class="bottom-nav-fixed">
+    <div class="bottom-nav-container">
+      <button class="nav-fixed-item" onclick="location.href='index.html'"><span class="nav-fixed-icon">🏠</span><span>Home</span></button>
+      <button class="nav-fixed-item active"><span class="nav-fixed-icon">🎫</span><span>Bookings</span></button>
+      <button class="nav-fixed-item" onclick="location.href='mybookings.html'"><span class="nav-fixed-icon">📋</span><span>Trips</span></button>
+      <button class="nav-fixed-item" onclick="location.href='myaccount.html'"><span class="nav-fixed-icon">👤</span><span>Account</span></button>
+    </div>
+  </div>
+
+  <script src="js/results.js"></script>
+</body>
+</html>

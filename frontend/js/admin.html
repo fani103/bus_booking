@@ -1,0 +1,14 @@
+<h1>Admin Panel</h1>
+
+<button onclick="loadBookings()">Load Bookings</button>
+<div id="data"></div>
+
+<script>
+async function loadBookings() {
+  const res = await fetch("http://localhost:5000/api/bookings");
+  const data = await res.json();
+
+  document.getElementById("data").innerHTML =
+    JSON.stringify(data, null, 2);
+}
+</script>

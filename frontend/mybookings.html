@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Bookings - Fun Travels</title>
+  <link rel="icon" href="images/icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bookings-page">
+  <header class="header">
+    <div class="top">
+      <div class="brand">
+        <img src="images/icon.png" alt="Fun Travels Logo" />
+        <span>Fun Travels</span>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="mybookings.html" class="active">My Bookings</a>
+        <a href="myaccount.html">Account</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-wrap">
+    <div class="container">
+      <h1 class="page-title">My Bookings</h1>
+      <div class="page-sub">View your confirmed and cancelled trips.</div>
+
+      <div class="booking-search">
+        <label>PHONE NUMBER</label>
+        <input type="text" id="bookingPhone" placeholder="Enter your phone number" />
+        <button class="btn btn-primary" id="loadBookingsBtn">Load Bookings</button>
+      </div>
+
+      <div id="bookingsContainer"></div>
+    </div>
+  </section>
+
+  <script src="js/mybookings.js"></script>
+</body>
+</html>
