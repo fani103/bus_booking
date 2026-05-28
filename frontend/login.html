@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Login - Fun Travels</title>
+
+  <link rel="icon" href="images/icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    .admin-access-btn {
+      margin-top: 20px;
+      text-align: center;
+      border-top: 1px solid var(--line-gray, #e2e8f0);
+      padding-top: 20px;
+    }
+
+    .btn-admin {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .btn-admin:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    @media (max-width: 520px) {
+      .btn-admin {
+        padding: 10px 18px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body class="login-page login-bg">
+
+  <div class="login-wrap">
+    <div class="login-card premium-login-card">
+
+      <div class="login-brand">
+        <img src="images/icon.png" alt="Fun Travels Logo" />
+        <span>Fun Travels</span>
+      </div>
+
+      <h1 class="page-title" style="text-align:center;">
+        Login with OTP
+      </h1>
+
+      <div class="page-sub" style="text-align:center;">
+        Continue before viewing available buses
+      </div>
+
+      <div class="trip-box">
+        <strong>Your Trip</strong>
+        <p id="tripText">Loading trip details...</p>
+      </div>
+
+      <form id="loginForm" class="form-grid">
+
+        <div class="field">
+          <label for="nameInput">NAME</label>
+
+          <input
+            type="text"
+            id="nameInput"
+            placeholder="Enter your name"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="phoneInput">MOBILE NUMBER</label>
+
+          <div class="otp-row">
+
+            <input
+              type="tel"
+              id="phoneInput"
+              placeholder="Enter 10-digit mobile number"
+              maxlength="10"
+              inputmode="numeric"
+              pattern="[6-9]{1}[0-9]{9}"
+              autocomplete="tel"
+              required
+            />
+
+            <button
+              type="button"
+              class="btn btn-dark otp-send-btn"
+              id="sendOtpBtn"
+            >
+              Send OTP
+            </button>
+
+          </div>
+
+          <div id="statusMsg" class="note"></div>
+          <div id="countdown" class="note"></div>
+        </div>
+
+        <div class="field otp-box" id="otpBox">
+
+          <label for="otpInput">ENTER OTP</label>
+
+          <input
+            type="text"
+            id="otpInput"
+            placeholder="Enter 6-digit OTP"
+            maxlength="6"
+            inputmode="numeric"
+            pattern="\d{6}"
+            autocomplete="one-time-code"
+          />
+
+        </div>
+
+        <div id="errorMsg" class="note login-error"></div>
+
+        <button
+          type="submit"
+          class="btn btn-primary premium-verify-btn"
+          id="verifyBtn"
+        >
+          Verify OTP & Continue
+        </button>
+
+      </form>
+
+      <div class="helper">
+        Safe login • Fast booking • Instant confirmation
+      </div>
+
+      <a href="index.html" class="back-link">
+        ← Back to search
+      </a>
+
+      <div class="admin-access-btn">
+
+        <button
+          type="button"
+          class="btn-admin"
+          id="adminRedirectBtn"
+        >
+          👑 Admin Access →
+        </button>
+
+        <div class="note" style="margin-top:8px;font-size:11px;">
+          Secure admin panel • Manage bookings & buses
+        </div>
+
+      </div>
+
+      <div class="demo-note">
+        Demo OTP flow — OTP will appear in alert for testing.
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/login.js"></script>
+
+</body>
+</html>

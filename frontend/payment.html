@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment - Fun Travels</title>
+  <link rel="icon" href="images/icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="payment-page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="top">
+      <div class="brand">
+        <img src="images/icon.png" />
+        <span>Fun Travels</span>
+      </div>
+
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="mybookings.html">My Bookings</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <section class="page-wrap">
+    <div class="container payment-layout">
+
+      <!-- LEFT: FORM -->
+      <div class="payment-card">
+        <h1 class="page-title">Passenger Details</h1>
+        <div class="page-sub">Complete details and confirm booking</div>
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label>FULL NAME</label>
+            <input type="text" id="userName" placeholder="Enter your name" />
+          </div>
+
+          <div class="field">
+            <label>EMAIL</label>
+            <input type="email" id="email" placeholder="Enter your email" />
+          </div>
+
+          <div class="field">
+            <label>PHONE</label>
+            <input type="text" id="phone" placeholder="Enter phone number" />
+          </div>
+
+        </div>
+
+        <!-- PAYMENT OPTIONS -->
+        <h3 style="margin-top:20px;">Payment Method</h3>
+
+        <div class="pay-options">
+          <button class="pay-option active" data-value="UPI">UPI / PhonePe</button>
+          <button class="pay-option" data-value="Card">Card</button>
+          <button class="pay-option" data-value="Netbanking">Net Banking</button>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="actions">
+          <button class="btn btn-primary" id="payBtn">Pay & Confirm</button>
+          <a href="results.html" class="btn btn-light">Back</a>
+        </div>
+
+        <div class="note">
+          Secure payment • Fast booking • Instant confirmation
+        </div>
+
+      </div>
+
+      <!-- RIGHT: SUMMARY -->
+      <div class="ticket-card">
+        <h2 class="page-title" style="font-size:24px;">Trip Summary</h2>
+        <div id="tripInfo"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RAZORPAY -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <!-- YOUR JS -->
+  <script src="js/payment.js"></script>
+
+</body>
+</html>

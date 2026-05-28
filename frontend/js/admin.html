@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fun Travels — Admin Panel (Password-Free)</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236ee7b7'%3E%3Cpath d='M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z'/%3E%3C/svg%3E" />
+  <style>
+    /* ========== YOUR EXACT CSS (from prompt) ========== */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+    :root{
+      --primary:        #2563EB;
+      --primary-dark:   #1D4ED8;
+      --primary-light:  #EFF6FF;
+      --accent:         #06B6D4;
+      --accent-dark:    #0891B2;
+      --emerald:        #10B881;
+      --dark:           #0F172A;
+      --dark-2:         #2b58a1;
+      --text:           #1E293B;
+      --text-light:     #64748B;
+      --white:          #FFFFFF;
+      --bg:             #F1F5F9;
+      --bg-soft:        #E2E8F0;
+      --line:           #E0F2FE;
+      --line-gray:      #E2E8F0;
+      --shadow:         0 4px 20px rgba(37,99,235,.08);
+      --shadow-md:      0 8px 30px rgba(37,99,235,.12);
+      --shadow-hover:   0 12px 40px rgba(37,99,235,.18);
+      --gradient-primary:  linear-gradient(135deg,#2563EB 0%,#06B6D4 100%);
+      --gradient-dark:     linear-gradient(135deg,#0F172A 0%,#1E293B 55%,#2563EB 100%);
+      --gradient-hero:     linear-gradient(160deg,#0F172A 0%,#1E293B 60%,#2563EB 100%);
+      --gradient-emerald:  linear-gradient(135deg,#10B881 0%,#06B6D4 100%);
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:"Poppins",sans-serif;
+      background:var(--bg);
+      color:var(--dark);
+      line-height:1.6;
+      padding-bottom:82px;
+    }
+    a{text-decoration:none;color:inherit}
+    button,input,select{font:inherit}
+    img{max-width:100%;display:block}
+
+    .container{max-width:1280px;margin:auto;padding:0 20px}
+    .header{
+      position:sticky;top:0;z-index:1000;
+      background:rgba(255,255,255,.97);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line-gray);
+      box-shadow:0 1px 12px rgba(0,0,0,.06);
+    }
+    .top{
+      max-width:1280px;margin:auto;padding:14px 20px;
+      display:flex;justify-content:space-between;align-items:center;gap:18px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+      font-size:24px;font-weight:800;
+      background:var(--gradient-primary);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .brand img{width:40px;height:40px;object-fit:contain}
+    .nav{display:flex;gap:6px;align-items:center;overflow:auto;scrollbar-width:none}
+    .nav a{
+      padding:8px 16px;border-radius:999px;
+      color:var(--text-light);font-weight:600;font-size:14px;
+      transition:.2s ease;
+    }
+    .nav a:hover,.nav a.active{
+      background:var(--gradient-primary);color:#fff;
+      box-shadow:0 4px 12px rgba(37,99,235,.25);
+    }
+    .btn{
+      border:none;outline:none;cursor:pointer;
+      border-radius:10px;padding:13px 22px;font-weight:700;font-size:14px;
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      transition:.25s ease;
+    }
+    .btn-primary{
+      background:var(--gradient-primary);color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,.3);
+    }
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,99,235,.4)}
+    .btn-dark{background:var(--dark);color:#fff}
+    .btn-dark:hover{background:var(--dark-2)}
+    .btn-danger{background:transparent;border:1px solid #f87171;color:#f87171}
+    .btn-danger:hover{background:rgba(248,113,113,0.1)}
+    .btn-ghost{background:var(--bg-soft);color:var(--text);border:1px solid var(--line-gray);}
+    .btn-ghost:hover{border-color:var(--primary);color:var(--primary);}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+    .stat-card{
+      background:#fff;border-radius:20px;padding:20px;
+      box-shadow:var(--shadow);border:1px solid rgba(37,99,235,.06);
+      position:relative;overflow:hidden;
+    }
+    .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .stat-card.green::before{background:var(--emerald)}
+    .stat-card.blue::before{background:var(--accent)}
+    .stat-card.red::before{background:#f87171}
+    .stat-card.yellow::before{background:#fbbf24}
+    .stat-label{color:var(--text-light);font-size:11px;text-transform:uppercase;margin-bottom:8px}
+    .stat-value{font-size:28px;font-weight:800}
+    .stat-card.green .stat-value{color:var(--emerald)}
+    .stat-card.blue .stat-value{color:var(--accent)}
+    .stat-card.red .stat-value{color:#f87171}
+    .table-wrap{
+      background:#fff;border-radius:20px;overflow:hidden;
+      box-shadow:var(--shadow);border:1px solid rgba(37,99,235,.06);
+    }
+    table{width:100%;border-collapse:collapse}
+    th{
+      padding:14px 16px;text-align:left;font-size:11px;
+      text-transform:uppercase;color:var(--text-light);
+      background:var(--bg);border-bottom:1px solid var(--line-gray);
+    }
+    td{padding:12px 16px;border-bottom:1px solid var(--line-gray);}
+    .badge{
+      display:inline-block;padding:4px 12px;border-radius:999px;
+      font-size:11px;font-weight:700;
+    }
+    .badge-confirmed{background:#DCFCE7;color:#059669}
+    .badge-cancelled{background:#FEE2E2;color:#DC2626}
+    .booking-id{color:var(--accent);font-weight:600}
+    .amount{color:var(--emerald);font-weight:700}
+    .toolbar{
+      display:flex;justify-content:space-between;margin-bottom:20px;
+      flex-wrap:wrap;gap:12px;
+    }
+    .tabs{display:flex;gap:6px;background:var(--bg);border-radius:40px;padding:4px}
+    .tab{
+      padding:6px 20px;border-radius:40px;cursor:pointer;
+      font-size:12px;font-weight:600;background:transparent;border:none;
+    }
+    .tab.active{background:var(--gradient-primary);color:#fff}
+    input[type="text"], select{
+      background:#fff;border:2px solid var(--line-gray);border-radius:12px;
+      padding:10px 16px;font-size:13px;outline:none;
+    }
+    input:focus{border-color:var(--primary)}
+    .bus-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+    .bus-card{
+      background:#fff;border-radius:20px;padding:18px;
+      box-shadow:var(--shadow);border:1px solid rgba(37,99,235,.06);
+    }
+    .bus-name{font-size:16px;font-weight:800;margin-bottom:4px}
+    .bus-route{color:var(--primary);font-weight:600;font-size:13px}
+    .bus-price{font-size:20px;font-weight:800;color:var(--emerald);float:right}
+    .seed-bar{
+      background:#fff;border-radius:20px;padding:18px;
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:16px;box-shadow:var(--shadow);
+    }
+    .toast{
+      position:fixed;bottom:90px;left:50%;transform:translateX(-50%);
+      background:var(--dark);color:#fff;padding:10px 20px;
+      border-radius:40px;font-size:13px;z-index:2000;
+      display:none;white-space:nowrap;
+    }
+    .toast.show{display:block}
+    .overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,0.6);
+      display:flex;align-items:center;justify-content:center;
+      z-index:1500;opacity:0;pointer-events:none;transition:.2s;
+    }
+    .overlay.show{opacity:1;pointer-events:all}
+    .modal{
+      background:#fff;border-radius:28px;padding:28px;
+      width:400px;max-width:90%;
+    }
+    .modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:20px}
+    .section-title{font-size:24px;font-weight:800;margin-bottom:16px}
+    .login-overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);
+      z-index:2000;display:flex;align-items:center;justify-content:center;
+    }
+    .login-overlay.hidden{display:none}
+    .premium-login-card{
+      background:#fff;border-radius:32px;padding:36px 34px;
+      width:480px;max-width:94%;box-shadow:0 30px 50px rgba(0,0,0,0.3);
+    }
+    .login-brand{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px}
+    .login-brand img{width:48px}
+    .login-brand span{font-size:28px;font-weight:800;background:var(--gradient-primary);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .trip-box{background:var(--primary-light);border-radius:18px;padding:14px;margin-bottom:20px}
+    .otp-row{display:flex;gap:12px;align-items:center}
+    .otp-row input{flex:1}
+    .field{margin-bottom:18px}
+    .field label{font-size:11px;font-weight:700;color:var(--text-light);text-transform:uppercase}
+    input,select{
+      width:100%;padding:14px 16px;border-radius:14px;
+      border:2px solid var(--line-gray);outline:none;
+    }
+    .btn-primary{width:100%;margin-top:8px}
+    .helper{text-align:center;margin-top:16px;font-size:12px;color:var(--text-light)}
+    .demo-note{background:var(--bg);border-radius:14px;padding:10px;font-size:11px;margin-top:16px;text-align:center}
+    .admin-quick-btn{
+      position:fixed;bottom:24px;right:24px;
+      background:var(--gradient-primary);color:#fff;
+      border:none;border-radius:60px;padding:12px 24px;
+      font-weight:700;cursor:pointer;z-index:500;
+      box-shadow:0 8px 20px rgba(37,99,235,0.4);
+      display:flex;align-items:center;gap:8px;
+    }
+    @media(max-width:768px){
+      .stats{grid-template-columns:1fr 1fr}
+      .premium-login-card{padding:24px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ADMIN PANEL (initially hidden) -->
+<div id="adminPanel" style="display: none;">
+  <div class="header">
+    <div class="top">
+      <div class="brand"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563EB'%3E%3Cpath d='M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z'/%3E%3C/svg%3E" alt="logo"/> FunTravels <span style="font-size:12px">ADMIN</span></div>
+      <div class="nav">
+        <a href="#" class="active" onclick="showSection('bookings');return false">🎫 Bookings</a>
+        <a href="#" onclick="showSection('buses');return false">🚌 Buses</a>
+        <a href="#" onclick="showSection('seed');return false">🌱 Seed</a>
+        <button class="btn btn-ghost" id="logoutBtn" style="margin-left:10px">🚪 Logout</button>
+      </div>
+      <div><input type="text" id="apiInput" placeholder="API Base URL" value="http://localhost:5000/api" style="width:260px"/></div>
+    </div>
+  </div>
+  <div class="container" style="padding-top:32px">
+    <div class="stats">
+      <div class="stat-card green"><div class="stat-label">Total Bookings</div><div class="stat-value" id="statTotal">—</div></div>
+      <div class="stat-card blue"><div class="stat-label">Confirmed</div><div class="stat-value" id="statConfirmed">—</div></div>
+      <div class="stat-card red"><div class="stat-label">Cancelled</div><div class="stat-value" id="statCancelled">—</div></div>
+      <div class="stat-card yellow"><div class="stat-label">Revenue</div><div class="stat-value" id="statRevenue">—</div></div>
+    </div>
+    <div id="section-bookings">
+      <div class="toolbar"><div class="tabs"><button class="tab active" onclick="filterBookings('ALL',this)">All</button><button class="tab" onclick="filterBookings('CONFIRMED',this)">Confirmed</button><button class="tab" onclick="filterBookings('CANCELLED',this)">Cancelled</button></div><div><input type="text" id="searchInput" placeholder="Search name/phone/ID..." oninput="renderTable()"/><button class="btn btn-primary" style="margin-left:10px" onclick="loadBookings()">↻ Refresh</button></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Booking ID</th><th>Passenger</th><th>Phone</th><th>Route</th><th>Date</th><th>Seats</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody id="bookingsBody"><tr><td colspan="9" style="text-align:center">Click Refresh to load bookings</td></tr></tbody></table></div>
+    </div>
+    <div id="section-buses" style="display:none"><div class="toolbar"><div class="section-title">Buses</div><button class="btn btn-primary" onclick="loadBuses()">↻ Refresh</button></div><div class="bus-grid" id="busGrid"><div class="empty-box"><p>Click Refresh to load buses</p></div></div></div>
+    <div id="section-seed" style="display:none"><div class="section-title">Seed Data</div><div class="seed-bar"><div><strong>Reseed Buses</strong><p>Delete all buses & insert fresh sample</p></div><button class="btn btn-danger" onclick="confirmSeed()">⚠ Reseed Buses</button></div><div class="seed-bar"><div><strong>SEED_SECRET</strong><p>Enter secret key from .env</p></div><input type="text" id="seedSecret" placeholder="SEED_SECRET value" style="width:220px"/></div></div>
+  </div>
+</div>
+
+<!-- LOGIN OVERLAY (PASSWORD-FREE ADMIN ACCESS BUTTON) -->
+<div id="loginOverlay" class="login-overlay">
+  <div class="premium-login-card">
+    <div class="login-brand"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563EB'%3E%3Cpath d='M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z'/%3E%3C/svg%3E" alt="logo"/><span>Fun Travels</span></div>
+    <div class="trip-box"><strong>🔐 Admin Access</strong><br/>Secure panel — One‑click entry (no password)</div>
+    <div class="field"><label>USERNAME (optional)</label><input type="text" id="adminUsername" placeholder="Enter your name or leave blank" autocomplete="off"/></div>
+    <button class="btn btn-primary" id="instantAdminBtn">✨ Access Admin Panel ✨</button>
+    <div class="helper">⚡ No OTP • No password • Instant access</div>
+    <div class="demo-note">For demo purposes only — Admin dashboard with bookings, buses & seed management.</div>
+    <div style="text-align:center; margin-top:16px"><a href="#" id="backToSiteLink" style="color:var(--primary)">← Back to passenger site</a></div>
+  </div>
+</div>
+
+<button id="floatingAdminBtn" class="admin-quick-btn" style="display: none;">👑 Admin Zone</button>
+
+<div id="toast" class="toast"></div>
+<div id="overlay" class="overlay"><div class="modal"><h3 id="modalTitle">Confirm</h3><p id="modalBody"></p><div class="modal-actions"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-danger" id="modalConfirmBtn">Confirm</button></div></div></div>
+
+<script>
+  // ---- GLOBALS ----
+  let allBookings = [];
+  let currentFilter = "ALL";
+  let adminActive = false;
+  let confirmCallback = null;
+
+  const API = () => document.getElementById("apiInput")?.value.replace(/\/$/, "") || "http://localhost:5000/api";
+  const HEADERS = { "Content-Type": "application/json", "ngrok-skip-browser-warning": "true" };
+  function toast(msg, type="success"){ const t = document.getElementById("toast"); t.textContent = msg; t.className = `toast show`; setTimeout(()=>t.classList.remove("show"),3000); }
+
+  // ---- Admin Entry (NO PASSWORD / NO OTP) ----
+  function enterAdminPanel() {
+    const username = document.getElementById("adminUsername").value.trim();
+    localStorage.setItem("fun_admin_session", JSON.stringify({ loggedIn: true, name: username || "Admin", timestamp: Date.now() }));
+    document.getElementById("loginOverlay").classList.add("hidden");
+    document.getElementById("adminPanel").style.display = "block";
+    document.getElementById("floatingAdminBtn").style.display = "none";
+    adminActive = true;
+    toast(`Welcome ${username || "Admin"}!`, "success");
+    loadBookings();
+    loadBuses();
+  }
+
+  document.getElementById("instantAdminBtn").addEventListener("click", enterAdminPanel);
+  document.getElementById("logoutBtn")?.addEventListener("click", () => {
+    localStorage.removeItem("fun_admin_session");
+    document.getElementById("adminPanel").style.display = "none";
+    document.getElementById("loginOverlay").classList.remove("hidden");
+    document.getElementById("floatingAdminBtn").style.display = "flex";
+    adminActive = false;
+    toast("Logged out from admin", "success");
+  });
+  document.getElementById("backToSiteLink")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = "index.html";
+  });
+  document.getElementById("floatingAdminBtn")?.addEventListener("click", () => {
+    document.getElementById("loginOverlay").classList.remove("hidden");
+    document.getElementById("floatingAdminBtn").style.display = "none";
+  });
+
+  function checkExistingSession() {
+    const session = localStorage.getItem("fun_admin_session");
+    if (session) {
+      try {
+        const s = JSON.parse(session);
+        if (s.loggedIn && (Date.now() - s.timestamp) < 7200000) {
+          document.getElementById("loginOverlay").classList.add("hidden");
+          document.getElementById("adminPanel").style.display = "block";
+          document.getElementById("floatingAdminBtn").style.display = "none";
+          adminActive = true;
+          loadBookings();
+          loadBuses();
+          return;
+        } else localStorage.removeItem("fun_admin_session");
+      } catch(e) {}
+    }
+    document.getElementById("loginOverlay").classList.remove("hidden");
+    document.getElementById("adminPanel").style.display = "none";
+    document.getElementById("floatingAdminBtn").style.display = "flex";
+  }
+
+  // ---- BOOKINGS ----
+  async function loadBookings() {
+    if(!adminActive) return;
+    const body = document.getElementById("bookingsBody");
+    body.innerHTML = `<tr><td colspan="9" style="text-align:center">Loading...</td></tr>`;
+    try {
+      const res = await fetch(`${API()}/bookings?phone=`, { headers: HEADERS });
+      const data = await res.json();
+      allBookings = Array.isArray(data) ? data : [];
+      updateStats();
+      renderTable();
+    } catch(err) {
+      body.innerHTML = `<tr><td colspan="9" style="color:red">❌ ${err.message}</td></tr>`;
+      toast("Failed to load bookings", "error");
+    }
+  }
+
+  function updateStats() {
+    const confirmed = allBookings.filter(b => b.status === "CONFIRMED");
+    const cancelled = allBookings.filter(b => b.status === "CANCELLED");
+    const revenue = confirmed.reduce((s,b) => s + (b.grandTotal || 0),0);
+    document.getElementById("statTotal").textContent = allBookings.length;
+    document.getElementById("statConfirmed").textContent = confirmed.length;
+    document.getElementById("statCancelled").textContent = cancelled.length;
+    document.getElementById("statRevenue").textContent = "₹" + revenue.toLocaleString("en-IN");
+  }
+
+  function filterBookings(status, el) {
+    currentFilter = status;
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    el.classList.add("active");
+    renderTable();
+  }
+
+  function renderTable() {
+    const search = document.getElementById("searchInput").value.toLowerCase();
+    let filtered = allBookings.filter(b => currentFilter === "ALL" ? true : b.status === currentFilter);
+    if(search) filtered = filtered.filter(b => (b.passenger || "").toLowerCase().includes(search) || (b.phone || "").includes(search) || (b.bookingId || "").toLowerCase().includes(search));
+    const body = document.getElementById("bookingsBody");
+    if(!filtered.length){ body.innerHTML = `<tr><td colspan="9" style="text-align:center">No bookings found</td></tr>`; return; }
+    body.innerHTML = filtered.map(b => `
+      <tr>
+        <td class="booking-id">${b.bookingId || "-"}</td>
+        <td>${b.passenger || "-"}</td>
+        <td style="color:var(--text-light)">${b.phone || "-"}</td>
+        <td><strong>${b.from || "-"} → ${b.to || "-"}</strong></td>
+        <td>${b.date || "-"}</td>
+        <td>${(b.seats || []).join(", ")}</td>
+        <td class="amount">₹${b.grandTotal || 0}</td>
+        <td><span class="badge ${b.status === "CONFIRMED" ? "badge-confirmed" : "badge-cancelled"}">${b.status}</span></td>
+        <td>${b.status === "CONFIRMED" ? `<button class="btn btn-danger" style="padding:6px 12px" onclick="cancelBookingById('${b._id}', '${b.bookingId}')">Cancel</button>` : "—"}</td>
+      </tr>
+    `).join("");
+  }
+
+  window.cancelBookingById = async (id, bookingId) => {
+    showModal("Cancel Booking", `Cancel booking <strong>${bookingId}</strong>?`, async () => {
+      try {
+        const res = await fetch(`${API()}/bookings/${id}/cancel`, { method: "PUT", headers: HEADERS });
+        if(!res.ok) throw new Error(await res.text());
+        toast("Booking cancelled");
+        closeModal();
+        loadBookings();
+      } catch(e) { toast(e.message, "error"); closeModal(); }
+    });
+  };
+
+  // ---- BUSES ----
+  async function loadBuses() {
+    if(!adminActive) return;
+    const grid = document.getElementById("busGrid");
+    grid.innerHTML = `<div class="empty-box"><p>Loading buses...</p></div>`;
+    try {
+      const res = await fetch(`${API()}/buses`, { headers: HEADERS });
+      const data = await res.json();
+      if(!data.length){ grid.innerHTML = `<div class="empty-box"><p>No buses. Use Seed.</p></div>`; return; }
+      grid.innerHTML = data.map(b => `
+        <div class="bus-card">
+          <div class="bus-price">₹${b.price}</div>
+          <div class="bus-name">${b.name}</div>
+          <div class="bus-route">${b.from} → ${b.to}</div>
+          <div class="bus-meta" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
+            <span class="badge">${b.busType}</span>
+            <span class="badge">${b.date}</span>
+            <span class="badge">${b.departureTime}</span>
+            <span class="badge">⭐ ${b.rating}</span>
+          </div>
+        </div>
+      `).join("");
+    } catch(e) { grid.innerHTML = `<div class="empty-box"><p>❌ ${e.message}</p></div>`; }
+  }
+
+  async function confirmSeed() {
+    const secret = document.getElementById("seedSecret").value.trim();
+    if(!secret) { toast("Enter SEED_SECRET", "error"); return; }
+    showModal("⚠ Reseed Buses", "This will DELETE all buses and insert sample data. Continue?", async () => {
+      try {
+        const res = await fetch(`${API()}/buses/seed?secret=${encodeURIComponent(secret)}`, { headers: HEADERS });
+        const data = await res.json();
+        if(!res.ok) throw new Error(data.message);
+        toast(`✓ Seeded ${data.count} buses`);
+        closeModal();
+        loadBuses();
+      } catch(e) { toast(e.message, "error"); closeModal(); }
+    });
+  }
+
+  // ---- Modal Utilities ----
+  function showModal(title, body, onConfirm) {
+    document.getElementById("modalTitle").innerHTML = title;
+    document.getElementById("modalBody").innerHTML = body;
+    document.getElementById("modalConfirmBtn").onclick = () => { if(onConfirm) onConfirm(); };
+    document.getElementById("overlay").classList.add("show");
+  }
+  function closeModal() { document.getElementById("overlay").classList.remove("show"); }
+  document.getElementById("overlay")?.addEventListener("click", (e) => { if(e.target === document.getElementById("overlay")) closeModal(); });
+
+  window.showSection = (section) => {
+    document.getElementById("section-bookings").style.display = section === "bookings" ? "block" : "none";
+    document.getElementById("section-buses").style.display = section === "buses" ? "block" : "none";
+    document.getElementById("section-seed").style.display = section === "seed" ? "block" : "none";
+    document.querySelectorAll(".nav a").forEach(a => a.classList.remove("active"));
+    if(section === "bookings") document.querySelector(".nav a:first-child")?.classList.add("active");
+    else if(section === "buses") document.querySelector(".nav a:nth-child(2)")?.classList.add("active");
+    else if(section === "seed") document.querySelector(".nav a:nth-child(3)")?.classList.add("active");
+    if(section === "buses") loadBuses();
+  };
+
+  window.filterBookings = filterBookings;
+  window.loadBookings = loadBookings;
+  window.loadBuses = loadBuses;
+  window.renderTable = renderTable;
+  window.confirmSeed = confirmSeed;
+
+  checkExistingSession();
+</script>
+</body>
+</html>

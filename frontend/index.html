@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Fun Travels - Bus Ticket Booking</title>
+  <link rel="icon" href="images/icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="home-page">
+  <header class="header">
+    <div class="top">
+      <div class="brand">
+        <img src="images/icon.png" alt="Fun Travels Logo" />
+        <span>Fun Travels</span>
+      </div>
+      <nav class="nav">
+        <a href="#" onclick="scrollToHome(event)" class="active">Home</a>
+        <a href="#routes" onclick="scrollToRoutes(event)">Routes</a>
+        <a href="#contact" onclick="scrollToContact(event)">Contact</a>
+        <a href="mybookings.html">My Bookings</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="hero-badge">✨ India's Most Trusted Bus Platform</div>
+          <h1>Book Your Journey With <span class="brand-highlight">Fun Travels</span></h1>
+          <p>Experience comfortable, safe, and affordable bus travel across India. Choose from premium routes with modern amenities.</p>
+          <div class="hero-points">
+            <div class="point">🎯 Smart Search</div>
+            <div class="point">💺 Seat Selection</div>
+            <div class="point">📱 Mobile Ready</div>
+            <div class="point">⭐ Premium UI</div>
+          </div>
+        </div>
+
+        <div class="card search-card">
+          <h2>Search Buses</h2>
+          <div class="sub">Find the best buses for your journey</div>
+
+          <form id="searchForm">
+            <div class="form-grid">
+              <div class="city-row">
+                <div class="field">
+                  <label>FROM</label>
+                  <input type="text" id="fromInput" placeholder="Departure City" value="Hyderabad" autocomplete="off" />
+                  <div class="suggestions" id="fromSuggestions"></div>
+                </div>
+
+                <button type="button" class="swap-btn" id="swapBtn">⇄</button>
+
+                <div class="field">
+                  <label>TO</label>
+                  <input type="text" id="toInput" placeholder="Destination City" value="Rajahmundry" autocomplete="off" />
+                  <div class="suggestions" id="toSuggestions"></div>
+                </div>
+              </div>
+
+              <div class="field full">
+                <label>JOURNEY DATE</label>
+                <input type="date" id="dateInput" />
+              </div>
+
+              <div class="women-booking-row">
+                <div class="women-booking-text">👩‍🦱 Booking for women</div>
+                <button type="button" class="know-more-link" id="knowMoreBtn">Know more →</button>
+              </div>
+
+              <button type="submit" class="btn btn-primary search-btn-logo">
+                Search buses
+              </button>
+            </div>
+          </form>
+
+          <div class="train-banner-ref">
+            <div>
+              <div class="train-text">🚆 Festival travel deals</div>
+              <div class="train-sub">Book early to get better seats</div>
+            </div>
+            <button type="button" class="book-train-ref-btn" id="trainFestBtn">Book now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-title">Why Choose Fun Travels?</div>
+      <div class="section-sub">We make bus booking simple, fast, and reliable</div>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">🚌</div>
+          <h3>Wide Network</h3>
+          <p>Popular routes across Chennai, Hyderabad, Tirupati, Nandyal, Rajahmundry and more.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">💺</div>
+          <h3>Choose Your Seat</h3>
+          <p>Interactive seat selection with booked seats locked automatically.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">✅</div>
+          <h3>Instant Confirmation</h3>
+          <p>Fast booking flow with success page and bookings history.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="routes">
+    <div class="container">
+      <div class="section-title">Popular Routes</div>
+      <div class="section-sub">Most booked routes by our travelers</div>
+
+      <div class="destination-grid">
+        <div class="destination-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&h=240&fit=crop"
+     alt="Hyderabad to Rajahmundry"
+     onerror="this.src='https://picsum.photos/400/240?random=1'">
+            <div class="price-tag">From ₹899</div>
+          </div>
+          <div class="destination-content">
+            <h3>Hyderabad → Rajahmundry</h3>
+            <div class="route-icon">🕐 8h | 🚌 AC Sleeper</div>
+            <p>Comfortable overnight buses with charging points and blankets.</p>
+            <span class="destination-tag">🔥 Top Route</span>
+            <button class="book-now-btn" onclick="bookRoute('Hyderabad','Rajahmundry')">Book Now →</button>
+          </div>
+        </div>
+
+        <div class="destination-card">
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&h=240&fit=crop"
+     alt="Chennai to Tirupati"
+     onerror="this.src='https://picsum.photos/400/240?random=2'">
+            <div class="price-tag">From ₹499</div>
+          </div>
+          <div class="destination-content">
+            <h3>Chennai → Tirupati</h3>
+            <div class="route-icon">🕐 3h 30m | 🚌 AC Seater</div>
+            <p>Fast day routes with smooth boarding and premium seating.</p>
+            <span class="destination-tag">⭐ Fast Trip</span>
+            <button class="book-now-btn" onclick="bookRoute('Chennai','Tirupati')">Book Now →</button>
+          </div>
+        </div>
+
+        <div class="destination-card">
+          <div class="card-image">
+           <img src="https://images.unsplash.com/photo-1566552881560-0be862a7c445?w=400&h=240&fit=crop"
+     alt="Mumbai to Hyderabad"
+     onerror="this.src='https://picsum.photos/400/240?random=3'">
+            <div class="price-tag">From ₹1299</div>
+          </div>
+          <div class="destination-content">
+            <h3>Mumbai → Hyderabad</h3>
+            <div class="route-icon">🕐 12h | 🚌 Volvo AC</div>
+            <p>Premium intercity travel with live tracking and better comfort.</p>
+            <span class="destination-tag">👑 Premium</span>
+            <button class="book-now-btn" onclick="bookRoute('Mumbai','Hyderabad')">Book Now →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="stats-wrap">
+        <div class="stats">
+          <div class="stat"><h3>100+</h3><p>Cities Covered</p></div>
+          <div class="stat"><h3>50K+</h3><p>Happy Customers</p></div>
+          <div class="stat"><h3>24/7</h3><p>Support</p></div>
+          <div class="stat"><h3>4.9★</h3><p>Rating</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="contact-section">
+        <div class="contact-grid">
+          <div class="contact-left">
+            <h3>Need Help?</h3>
+            <p>Our customer support team is available to help with bookings, cancellations, and travel queries.</p>
+            <div class="contact-cards">
+              <div class="contact-card"><strong>📞 Customer Care</strong><span>+91 98765 43210</span></div>
+              <div class="contact-card"><strong>✉️ Email</strong><span>support@funtravels.com</span></div>
+              <div class="contact-card"><strong>📍 Office</strong><span>Chennai, Tamil Nadu, India</span></div>
+            </div>
+          </div>
+          <div class="contact-right">
+            <h3>Travel With Confidence</h3>
+            <p>Your comfort and safety come first. Every booking flow is designed for speed, clarity, and mobile use.</p>
+            <div class="contact-list">
+              <div>✓ Instant Booking Confirmation</div>
+              <div>✓ Interactive Seat Selection</div>
+              <div>✓ Mobile Friendly Design</div>
+              <div>✓ Easy Booking History</div>
+            </div>
+            <button class="btn btn-light" id="bookTripBtn">Book Your Trip →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta">
+        <h3>Ready for Your Next Adventure?</h3>
+        <p>Book your bus tickets now and enjoy a comfortable journey with Fun Travels.</p>
+        <button class="btn btn-light" id="startBookingBtn">Start Booking →</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Fun Travels</h3>
+          <p>Making bus travel comfortable, affordable, and reliable.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="#" onclick="scrollToHome(event)">Home</a>
+          <a href="#" onclick="scrollToRoutes(event)">Routes</a>
+          <a href="#" onclick="scrollToContact(event)">Contact</a>
+          <a href="mybookings.html">My Bookings</a>
+        </div>
+        <div class="footer-col">
+          <h4>Top Cities</h4>
+          <p>Chennai</p>
+          <p>Hyderabad</p>
+          <p>Nandyal</p>
+          <p>Rajahmundry</p>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <p>Help Center</p>
+          <p>Cancellation Policy</p>
+          <p>Terms & Conditions</p>
+          <p>Privacy Policy</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Fun Travels. All rights reserved.</p>
+        <p>Made for travelers</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="bottom-nav-fixed">
+    <div class="bottom-nav-container">
+      <button class="nav-fixed-item active" data-nav="home"><span class="nav-fixed-icon">🏠</span><span>Home</span></button>
+      <button class="nav-fixed-item" data-nav="bookings"><span class="nav-fixed-icon">🎫</span><span>Bookings</span></button>
+      <button class="nav-fixed-item" data-nav="help"><span class="nav-fixed-icon">❓</span><span>Help</span></button>
+      <button class="nav-fixed-item" data-nav="account"><span class="nav-fixed-icon">👤</span><span>Account</span></button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

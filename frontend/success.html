@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Success - Fun Travels</title>
+  <link rel="icon" href="images/icon.png"/>
+  <link rel="stylesheet" href="css/style.css"/>
+
+  <style>
+    .qr-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #qrImage {
+      width: 180px;
+      margin: 10px auto;
+      display: block;
+    }
+
+    #downloadQR,
+    #whatsappBtn {
+      display: block;
+      width: 100%;
+      max-width: 240px;
+      margin: 10px auto;
+    }
+  </style>
+</head>
+
+<body class="login-bg">
+
+<div class="success-wrap">
+
+  <div class="success-card">
+
+    <!-- Brand -->
+    <div class="login-brand">
+      <img src="images/icon.png"/>
+      <span>Fun Travels</span>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-icon">✔</div>
+    <h1 class="page-title" style="text-align:center;">Booking Confirmed 🎉</h1>
+    <div class="page-sub" style="text-align:center;">Your ticket is successfully booked</div>
+
+    <!-- Ticket -->
+    <div class="ticket-card" style="box-shadow:none; border:1px solid var(--line);">
+      <div id="ticketBox" class="ticket-grid"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions" style="justify-content:center;">
+      <button class="btn btn-dark" onclick="window.print()">Print Ticket</button>
+      <button onclick="downloadPDF()" class="btn btn-primary">Download Ticket</button>
+      <a href="mybookings.html" class="btn btn-primary">My Bookings</a>
+      <a href="index.html" class="btn btn-light">Book Another</a>
+    </div>
+
+    <!-- QR + WhatsApp -->
+    <div class="qr-box">
+      <a id="whatsappBtn" class="btn btn-success">Send via WhatsApp</a>
+      <h3>Your Ticket QR</h3>
+      <img id="qrImage"/>
+      <button id="downloadQR" class="btn">Download QR</button>
+    </div>
+
+    <div class="helper">Have a safe journey ✈️</div>
+
+  </div>
+</div>
+
+<!-- Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<!-- MAIN SCRIPT -->
+<script>
+const booking = JSON.parse(localStorage.getItem("ft_last_paid") || {});
+const box = document.getElementById("ticketBox");
+
+// 🚨 Guard
+if (!booking.bookingId) {
+  alert("No recent booking found");
+  location.href = "index.html";
+}
+
+// 🎫 Ticket UI
+box.innerHTML = `
+  <div class="ticket-item"><span>Route</span><strong>${booking.from} → ${booking.to}</strong></div>
+  <div class="ticket-item"><span>Booking ID</span><strong>${booking.bookingId}</strong></div>
+  <div class="ticket-item"><span>Passenger</span><strong>${booking.passenger}</strong></div>
+  <div class="ticket-item"><span>Phone</span><strong>${booking.phone}</strong></div>
+  <div class="ticket-item"><span>Date</span><strong>${booking.date}</strong></div>
+  <div class="ticket-item"><span>Operator</span><strong>${booking.operator}</strong></div>
+  <div class="ticket-item"><span>Bus Type</span><strong>${booking.type}</strong></div>
+  <div class="ticket-item"><span>Seats</span><strong>${booking.seats.join(", ")}</strong></div>
+  <div class="ticket-item"><span>Boarding</span><strong>${booking.boarding}</strong></div>
+  <div class="ticket-item"><span>Dropping</span><strong>${booking.dropping}</strong></div>
+  <div class="ticket-item"><span>Payment</span><strong>${booking.paymentMethod}</strong></div>
+  <div class="ticket-item"><span>Amount Paid</span><strong>₹${booking.grandTotal}</strong></div>
+  <div class="ticket-item"><span>Status</span><strong class="status-ok">${booking.status}</strong></div>
+  <div class="ticket-item"><span>Paid At</span><strong>${booking.paidAt}</strong></div>
+`;
+
+// 🎫 QR Code
+if (booking.qr) {
+  document.getElementById("qrImage").src = booking.qr;
+
+  document.getElementById("downloadQR").onclick = () => {
+    const a = document.createElement("a");
+    a.href = booking.qr;
+    a.download = "ticket.png";
+    a.click();
+  };
+}
+
+// 📱 WhatsApp
+const message = `
+🎫 Fun Travels Booking
+
+ID: ${booking.bookingId}
+Name: ${booking.passenger}
+${booking.from} → ${booking.to}
+Seats: ${booking.seats.join(", ")}
+₹${booking.total}
+`;
+
+document.getElementById("whatsappBtn").href =
+  "https://wa.me/?text=" + encodeURIComponent(message);
+
+// 📄 PDF
+function downloadPDF() {
+  const element = document.getElementById("ticketBox");
+  html2pdf().from(element).save("ticket.pdf");
+}
+
+// 🎉 Confetti
+confetti({
+  particleCount: 120,
+  spread: 80,
+  origin: { y: 0.6 }
+});
+
+setTimeout(() => {
+  confetti({
+    particleCount: 80,
+    spread: 100,
+    origin: { y: 0.7 }
+  });
+}, 500);
+</script>
+
+</body>
+</html>
